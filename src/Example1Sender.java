@@ -1,38 +1,39 @@
-
-
-import java.net.*;
-import java.io.*;
+import java.io.*; 
+import java.net.*; 
 
 /**
- * This example illustrates the basic method calls for connectionless
- * datagram socket.
+ * This example illustrates the basic syntax for basic multicast.
  * @author M. L. Liu
  */
 public class Example1Sender {
 
-// An application which sends a message using connectionless
-// datagram socket.
-// Three command line arguments are expected, in order:
-//    <domain name or IP address of the receiver>
-//    <port number of the receiver's socket>
-//    <message, a string, to send>
+// An application which uses a multicast socket to send
+// a single message to a multicast group.
+// The message is specified as a command-line argument
 
-    public static void main(String[] args) {
-        if (args.length != 3)
-            System.out.println
-                    ("This program requires three command line arguments");
-        else {
-            try {
-                InetAddress receiverHost = InetAddress.getByName(args[0]);
-                int receiverPort = Integer.parseInt(args[1]);
-
-                MyDatagramSocket mySocket = new MyDatagramSocket(2001);
-                mySocket.sendMessage(receiverHost, receiverPort, args[2]);
-                mySocket.close();
-            } // end try
-            catch (Exception ex) {
-                ex.printStackTrace( );
-            }
-        } // end else
-    } // end main
-} // end class
+   public static void main(String[] args) {
+      MulticastSocket s;
+      InetAddress group;
+      if (args.length != 1)
+         System.out.println
+            ("This program requires a command line argument");
+      else {
+         try {      
+            // create the multicast socket
+            group = InetAddress.getByName("239.1.2.3");
+            s = new MulticastSocket(3456);
+            s.setTimeToLive(32);   // restrict multicast to processes
+                                   // running on hosts at the same site.
+            String msg = args[0];
+            DatagramPacket packet = 
+               new DatagramPacket(msg.getBytes(), msg.length(),
+                   group, 3456);
+            s.send(packet);
+            s.close();
+         }
+         catch (Exception ex) { // here if an error has occurred
+            ex.printStackTrace( );
+         } // end catch
+      }//end else
+   }// end main
+}// end class
