@@ -57,11 +57,11 @@ public static final int echo = 1;
  * @exception        java.io.IOException Thrown if the call fails because the socket connection fails.
  * @exception        RPCError Thrown if the call fails for any other reason.
  */
-public int echo_1(int arg1) throws RPCError, IOException {
-  XDRint arg_ref = new XDRint();
+public String echo_1(String arg1) throws RPCError, IOException {
+  XDRstring arg_ref = new XDRstring();
   arg_ref.value = arg1;
 
-  XDRint retval = new XDRint();
+  XDRstring retval = new XDRstring();
   GetClient().Call(echo, arg_ref, retval);
 
   return retval.value;

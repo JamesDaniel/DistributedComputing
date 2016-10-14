@@ -12,13 +12,14 @@ public class echoclient
 		}		
 		try
 		// call echo method in the stub
-{	client = new ECHOPROG(InetAddress.getByName(argv[0]),true);			
-int result = client.echo_1(Integer.parseInt(argv[1]));
+		{		
+			client = new ECHOPROG(InetAddress.getByName(argv[0]),true);			
+			String result = client.echo_1(argv[1]);
 			System.out.println("\nThe Echo Number is " + result);
 		}
 		catch(Exception e)
 		{
-		  System.out.println("\nThe Exception is " + e.getMessage());
+			System.out.println("\nThe Exception is " + e.getMessage());
 
 		}
 		System.exit(0);

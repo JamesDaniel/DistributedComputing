@@ -1,5 +1,5 @@
 program ECHOPROG {
 	version ECHOVERS {
-		int echo(int) = 1;
+		string echo(string) = 1;
 	} = 1;
 } = 77;

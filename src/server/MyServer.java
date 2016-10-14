@@ -17,8 +17,9 @@ public class MyServer extends ECHOPROGServer
 	{	super(); 
 	}
  	// override the echo_1 method from the stub – where it does nothing
-	public int echo_1(int a)
+	public String echo_1(String a)
 	{
-		return(--a);
+		
+		return(new StringBuilder(a).reverse().toString());
 	}
 }
